@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" type="image" href="/assets/box.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@400;700&display=swap" rel="stylesheet">
+    <title>Gerador de Box-Shadow</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Rowdies', cursive;
+            font-size: 16px;
+            color: #3b72e8;
+            margin: 0;
+            padding: 0;
+        }
+
+        container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            width: 330px;
+            height: 450px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 32px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .box input {
+            margin: 10px 0;
+            display: block;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .css-value {
+            height: 30px;
+            font-size: 18px;
+            color: #3b72e8;
+            font-family: 'Rowdies', cursive;
+        }
+
+        footer {
+            display: inline-flex;
+            align-items: center;
+            margin: -5px 131px 0px 153px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <container>
+        <div class="box">
+
+            <h1>Gerador de Box-Shadow</h1>
+            <br>
+            <label>Offset X</label>
+            <input class="offerset-x" type="range" min="-100" max="100" value="2" placeholder="0">
+            <label>Offset y</label>
+            <input class="offerset-y" type="range" min="-100" max="100" value="2" placeholder="0">
+            <label>Blur Radius</label>
+            <input class="blur-radius" type="range" min="0" max="100" value="2" placeholder="0">
+            <label>Blur Spread</label>
+            <input class="blur-spread" type="range" min="0" max="100" value="2" placeholder="0">
+
+            <input class="color" type="color" value="#000000" placeholder="#000000">
+            <input class="css-value" type="text" onclick="this.select()" readonly>
+
+            <footer>
+                <label>Inset</label>
+                <input type="checkbox" class="intset" value="inset">
+            </footer>
+
+        </div>
+    </container>
+    <script>
+        const box = document.querySelector('.box');
+        const x = document.querySelector('.offerset-x');
+        const y = document.querySelector('.offerset-y');
+        const blurR = document.querySelector('.blur-radius');
+        const blurS = document.querySelector('.blur-spread');
+        const color = document.querySelector('.color');
+        const cssvalue = document.querySelector('.css-value');
+        const inset = document.querySelector('.intset');
+
+        function updateBoxShadow() {
+            //let v = '';
+            if (inset.checked) {
+                v = `${x.value}px ${y.value}px ${blurR.value}px ${blurS.value}px ${color.value} ${inset.value}`;
+            } else {
+                v = `${x.value}px ${y.value}px ${blurR.value}px ${blurS.value}px ${color.value}`;
+            }
+            box.style.boxShadow = v;
+            cssvalue.value = v;
+        }
+        [color, x, y, blurR, blurS, inset].forEach(el => el.addEventListener('input', updateBoxShadow));
+    </script>
+</body>
+
+</html>
